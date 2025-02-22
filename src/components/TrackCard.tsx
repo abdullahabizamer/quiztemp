@@ -21,7 +21,7 @@ interface TrackCardProps {
   onClick?: () => void;
 }
 
-const TrackCard = ({
+const TrackCard: React.FC<TrackCardProps> = ({
   title = "Software Engineering",
   description = "Master software development concepts and best practices",
   progress = 65,

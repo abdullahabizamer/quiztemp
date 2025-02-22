@@ -23,7 +23,7 @@ interface SidebarProps {
   onNavigate?: (page: string) => void;
 }
 
-const Sidebar = ({
+const Sidebar: React.FC<SidebarProps> = ({
   activePage = "home",
   onNavigate = () => {},
 }: SidebarProps) => {

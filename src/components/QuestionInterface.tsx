@@ -27,7 +27,7 @@ interface QuestionInterfaceProps {
   error?: string;
 }
 
-const QuestionInterface = ({
+const QuestionInterface: React.FC<QuestionInterfaceProps> = ({
   question = {
     id: "1",
     question:

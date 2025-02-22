@@ -1,41 +1,53 @@
 import React from "react";
 import Sidebar from "./Sidebar";
-import SearchBar, { SearchFilters } from "./SearchBar";
+import SearchBar from "./SearchBar";
 import TrackGrid from "./TrackGrid";
 import QuestionInterface from "./QuestionInterface";
 import AdminDashboard from "./AdminDashboard";
+import { SearchFilters, Question } from "@/types";
 
-const Home = () => {
+const Home: React.FC = () => {
   const [activePage, setActivePage] = React.useState("home");
   const [selectedTrack, setSelectedTrack] = React.useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [filters, setFilters] = React.useState<SearchFilters>({
+    year: "",
+    topic: "",
+    difficulty: "",
+  });
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
   const handleSearch = async (query: string) => {
-    try {
-      setIsLoading(true);
-      // TODO: Implement search functionality
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-    } finally {
-      setIsLoading(false);
-    }
+    setSearchQuery(query);
   };
 
-  const handleFilterChange = async (filters: SearchFilters) => {
-    try {
-      setIsLoading(true);
-      // TODO: Implement filter functionality
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-    } finally {
-      setIsLoading(false);
-    }
+  const handleFilterChange = (newFilters: SearchFilters) => {
+    setFilters(newFilters);
   };
 
   const handleTrackSelect = (trackId: string) => {
     setSelectedTrack(trackId);
     setActivePage(trackId);
+  };
+
+  const handleQuestionSubmit = async (answer: number) => {
+    // TODO: Implement question submission
+    console.log("Submitted answer:", answer);
+  };
+
+  const handleAddQuestion = async (
+    question: Omit<Question, "id" | "createdAt" | "updatedAt">,
+  ) => {
+    try {
+      setIsLoading(true);
+      // TODO: Implement question addition
+      console.log("Adding question:", question);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -45,6 +57,7 @@ const Home = () => {
         <SearchBar
           onSearch={handleSearch}
           onFilterChange={handleFilterChange}
+          initialFilters={filters}
           isLoading={isLoading}
           error={error}
         />
@@ -52,9 +65,17 @@ const Home = () => {
           {activePage === "home" ? (
             <TrackGrid onTrackSelect={handleTrackSelect} />
           ) : activePage === "admin" ? (
-            <AdminDashboard />
+            <AdminDashboard
+              onAddQuestion={handleAddQuestion}
+              isLoading={isLoading}
+              error={error}
+            />
           ) : (
-            <QuestionInterface />
+            <QuestionInterface
+              onSubmit={handleQuestionSubmit}
+              isLoading={isLoading}
+              error={error}
+            />
           )}
         </div>
       </main>

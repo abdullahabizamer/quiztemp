@@ -10,7 +10,7 @@ interface TrackGridProps {
   onTrackSelect?: (trackId: string) => void;
 }
 
-const TrackGrid = ({
+const TrackGrid: React.FC<TrackGridProps> = ({
   isLoading = false,
   error,
   tracks = [

@@ -23,7 +23,7 @@ interface AdminDashboardProps {
   error?: string;
 }
 
-const AdminDashboard = ({
+const AdminDashboard: React.FC<AdminDashboardProps> = ({
   onAddQuestion = () => {},
   onEditQuestion = () => {},
   onDeleteQuestion = () => {},

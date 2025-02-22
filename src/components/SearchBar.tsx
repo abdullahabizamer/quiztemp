@@ -20,7 +20,7 @@ export interface SearchBarProps {
   error?: string;
 }
 
-const SearchBar = ({
+const SearchBar: React.FC<SearchBarProps> = ({
   onSearch = () => {},
   onFilterChange = () => {},
   isLoading = false,
